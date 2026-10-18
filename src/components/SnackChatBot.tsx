@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MealItem, SchoolInfo } from '../types';
 import { ALLERGEN_MAP } from '../data/allergens';
+import { getSnackRecommendation } from '../services/snackRecommendation';
 import {
   Sparkles,
   MessageCircle,
@@ -100,19 +101,13 @@ export const SnackChatBot: React.FC<SnackChatBotProps> = ({
         text: m.text,
       }));
 
-      const res = await fetch('/api/snack-chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: textToSend,
-          history: historyPayload,
-          mealContext: mealContextString,
-          avoidedAllergens: avoidedNames,
-        }),
+      // Call client-side recommendation engine (compatible with GitHub Pages static hosting)
+      const botResponseText = await getSnackRecommendation({
+        message: textToSend,
+        history: historyPayload,
+        mealContext: mealContextString,
+        avoidedAllergens: avoidedNames,
       });
-
-      const data = await res.json();
-      const botResponseText = data.text || '맛있는 간식을 찾는데 잠시 문제가 생겼어요. 다시 물어봐줘!';
 
       const botMsg: ChatMessage = {
         id: `bot-${Date.now()}`,
