@@ -1,0 +1,6 @@
+{
+  "name": "오늘의 급식 - 전국 학교 급식 조회",
+  "description": "전국 초·중·고등학교 실시간 급식 식단표, 알레르기 알림, 칼로리 및 영양정보 조회, AI 맞춤 간식 추천 챗봇 서비스",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
